@@ -1,6 +1,8 @@
 .list {
   width: 100%;
   margin-top: 10px;
+  margin-bottom: 20px;
+
   .listTitle {
     color: white;
     font-size: 20px;
@@ -16,11 +18,12 @@
       background-color: rgb(22, 22, 22, 0.5);
       color: white;
       position: absolute;
-      z-index: 999;
+      z-index: 99;
       top: 0;
       bottom: 0;
       margin: auto;
       cursor: pointer;
+
       &.left {
         left: 0;
       }
@@ -30,12 +33,12 @@
       }
     }
     .container {
-      margin-top: 10px;
       margin-left: 50px;
       display: flex;
+      margin-top: 10px;
       width: max-content;
       transform: translateX(0px);
-      transition: all 1s ease;
+      transition: all 0.3s ease;
     }
   }
 }

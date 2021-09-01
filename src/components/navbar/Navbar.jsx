@@ -1,19 +1,35 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { Link, useHistory } from "react-router-dom";
 import "./navbar.scss";
 import { useState } from "react";
+import { AuthContext } from "../../authContext/AuthContext";
+import { logout } from "../../authContext/AuthActions";
 const Navbar = () => {
+  const { dispatch } = useContext(AuthContext);
   const [isScrolled, setIsScrolled] = useState(false);
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
+  let history = useHistory();
+  useEffect(() => {
+    window.onscroll = () => {
+      setIsScrolled(window.pageYOffset === 0 ? false : true);
+    };
     return () => {
+      setIsScrolled({});
       window.onscroll = null;
     };
-  };
+  }, []);
 
-  console.log(isScrolled);
+  const HandleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(logout());
+      history.push("/login");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">
@@ -22,9 +38,15 @@ const Navbar = () => {
             src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
             alt=""
           />
-          <span>Homepage</span>
-          <span>Series</span>
-          <span>Movies</span>
+          <Link to="" className="link">
+            <span>Homepage</span>
+          </Link>
+          <Link to="/series" className="link">
+            <span className="navbarmainLinks">Series</span>
+          </Link>
+          <Link to="/movies" className="link">
+            <span className="navbarmainLinks">Movies</span>
+          </Link>
           <span>New and Popular</span>
           <span>My List</span>
         </div>
@@ -39,10 +61,10 @@ const Navbar = () => {
             alt=""
           />
           <div className="profile">
-            <ArrowDropDownIcon className="icon" />
+            <ArrowDropDownIcon className="icon exception" />
             <div className="options">
               <span>Settings</span>
-              <span>Logout</span>
+              <span onClick={HandleLogout}>Logout</span>
             </div>
           </div>
         </div>

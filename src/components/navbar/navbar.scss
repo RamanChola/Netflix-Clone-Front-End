@@ -1,56 +1,93 @@
+@import "../../app.scss";
+
 .navbar {
   width: 100%;
-  background: linear-gradient(to top, transparent 0%, rgb(0, 0, 0, 0.3) 50%);
-  color: #fff;
+  color: white;
   font-size: 14px;
   position: fixed;
   top: 0;
   z-index: 999;
-  transition: background 0.5s ease-in-out;
+  background: linear-gradient(to top, transparent 0%, rgb(0, 0, 0, 0.3) 50%);
 
   &.scrolled {
     background-color: var(--main-color);
-    
   }
 
   .container {
-    height: 70px;
-    padding: 0 50px;
+    padding: 0px 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 70px;
+
     .left {
       display: flex;
       align-items: center;
+
       img {
-        height: 70px;
+        height: 80px;
         margin-right: 40px;
+
+        @include mobile {
+          display: none;
+        }
       }
+
       span {
         margin-right: 20px;
         cursor: pointer;
+
+        @include tablet {
+          display: none;
+        }
+
+        &.navbarmainLinks {
+          @include tablet {
+            display: block;
+          }
+        }
       }
     }
+
     .right {
       display: flex;
       align-items: center;
+      
+
       .icon {
-        margin: 0 15px;
+        margin: 0px 15px;
         cursor: pointer;
+        @include mobile {
+          display:none;    
+        }
+        &.exception {
+          @include tablet {
+            display: block;
+          }
+        }
       }
-      .account-image {
-        height: 30px;
+
+      img {
         width: 30px;
+        height: 30px;
         border-radius: 5px;
         object-fit: cover;
         cursor: pointer;
+        @include mobile {
+          width: 25px;
+          height: 25px;
+          margin-left: 10px;
+        }
+        
       }
+
       .profile {
         .options {
           display: none;
           background-color: var(--main-color);
           border-radius: 5px;
         }
+
         span {
           padding: 10px;
           cursor: pointer;

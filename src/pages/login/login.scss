@@ -1,12 +1,13 @@
+@import "../../app.scss";
 .login {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(
-      to bottom,
+      to top,
       rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 1) 100%
+      rgba(0, 0, 0, .7) 100%
     ),
-    url("http://mppmduse2pmpovwapp.azurewebsites.net/wp-content/uploads/2019/09/netflix-background-9.jpg");
+    url("https://assets.nflxext.com/ffe/siteui/vlv3/5a27cb25-33a9-4bcc-b441-95fefabcbd37/2548691d-4d8c-4d97-b96d-449d3cca5d7e/IN-en-20210823-popsignuptwoweeks-perspective_alpha_website_medium.jpg");
   background-size: cover;
   position: relative;
   .top {
@@ -31,6 +32,23 @@
     align-items: center;
     justify-content: center;
     color: white;
+    .error {
+      background-color: #fce4e4;
+      border: 1px solid #fcc2c3;
+      float: left;
+      padding: 10px 10px;
+      display: flex;
+      align-items: center;
+      .error-message {
+        color: #cc0033;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 20px;
+        text-shadow: 1px 1px rgba(250, 250, 250, 0.3);
+        margin-left: 5px;
+      }
+    }
     form {
       width: 300px;
       height: 300px;
@@ -68,6 +86,10 @@
         padding:0 5px;
         color:white;
       }
+    }
+    @include mobile {
+      width: 100%;
+      overflow-x: hidden;
     }
   }
 }

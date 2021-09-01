@@ -1,31 +1,29 @@
+@import "../../app.scss";
 .register {
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
-    url("https://cdn.hipwallpaper.com/i/98/21/dUyCkp.jpg");
+  background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, .7) 100%
+    ),
+    url("https://assets.nflxext.com/ffe/siteui/vlv3/5a27cb25-33a9-4bcc-b441-95fefabcbd37/2548691d-4d8c-4d97-b96d-449d3cca5d7e/IN-en-20210823-popsignuptwoweeks-perspective_alpha_website_large.jpg");
   background-size: cover;
   position: relative;
+
   .top {
     .wrapper {
       padding: 20px 50px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       .logo {
         height: 40px;
       }
-      .loginButton {
-        background-color: red;
-        border: none;
-        color: white;
-        border-radius: 5px;
-        padding: 5px 15px;
-        font-size: 16px;
-        font-weight: 500;
-        cursor: pointer;
-      }
     }
   }
+
   .container {
     width: 100%;
     height: 100%;
@@ -37,43 +35,92 @@
     align-items: center;
     justify-content: center;
     color: white;
-    .container-top-text {
-      text-align: center;
-      max-width: 700px;
-      h1 {
-        font-size: 60px;
+    .error {
+      background-color: #fce4e4;
+      border: 1px solid #fcc2c3;
+      float: left;
+      padding: 10px 10px;
+      display: flex;
+      align-items: center;
+      .error-message {
+        color: #cc0033;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 20px;
+        text-shadow: 1px 1px rgba(250, 250, 250, 0.3);
       }
-      h2 {
-        margin: 20px;
+    }
+
+    h1 {
+      font-size: 50px;
+      @include mobile {
+        font-size: 22px;
+        text-align: center;
       }
-      p {
-        font-size: 21px;
+      @include tablet {
+        font-size: 40px;
+        text-align: center;
+      }
+    }
+
+    h2 {
+      margin: 20px;
+      @include mobile {
+        font-size: 15px;
+      }
+      @include tablet {
+        font-size: 22px;
+      }
+    }
+
+    p {
+      font-size: 20px;
+      @include mobile {
+        font-size: 12px;
+        text-align: center;
+      }
+      @include tablet {
+        font-size: 16px;
+        text-align: center;
       }
     }
 
     .input {
-      width: 50%;
-      background-color: white;
+      width: 35%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-top: 20px;
       height: 50px;
       border-radius: 5px;
+      @include tablet {
+        justify-content: center;
+        text-align: center;
+      }
       input {
         flex: 9;
         height: 100%;
         border: none;
-        padding: 0px 10px;
+        padding: 0 10px;
+        @include tablet {
+          height: 70%;
+          font-size: 14px;
+        }
       }
+
       .registerButton {
         flex: 3;
         height: 100%;
-        border: none;
         background-color: red;
+        border: none;
         color: white;
-        font-size: 22px;
+        font-size: 20px;
         cursor: pointer;
+        @include tablet {
+          height: 70%;
+          font-size: 14px;
+        }
       }
     }
   }

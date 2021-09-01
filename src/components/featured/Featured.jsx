@@ -1,50 +1,87 @@
 import "./featured.scss";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-const Featured = ({ type }) => {
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { LinearProgress } from "@material-ui/core";
+const Featured = ({ type, setGenre }) => {
+  const [content, setContent] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    let unmounted = false;
+    const getRandomContent = async () => {
+      try {
+        setIsLoading(true);
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/movies/random?type=${type}`,
+          {
+            headers: {
+              token:
+                "Bearer " +
+                JSON.parse(localStorage.getItem("user")).accessToken,
+            },
+          }
+        );
+        if (!unmounted) {
+          setContent(res.data[0]);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (!unmounted) {
+          console.error(error);
+        }
+      }
+    };
+    getRandomContent();
+    return () => {
+      unmounted = true;
+    };
+  }, [type]);
+
   return (
     <div className="featured">
+      {isLoading && <LinearProgress color="secondary" />}
       {type && (
         <div className="category">
           <span>{type === "movie" ? "Movies" : "Series"}</span>
-          <select name="genre" id="genre">
-            <option>Genre</option>
-            <option value="adventure">Adventure</option>
-            <option value="comedy">Comedy</option>
-            <option value="crime">Crime</option>
-            <option value="fantasy">Fantasy</option>
-            <option value="historical">Historical</option>
-            <option value="horror">Horror</option>
-            <option value="romance">Romance</option>
-            <option value="sci-fi">Sci-fi</option>
-            <option value="thriller">Thriller</option>
-            <option value="western">Western</option>
-            <option value="animation">Animation</option>
-            <option value="drama">Drama</option>
-            <option value="documentary">Documentary</option>
+          <select
+            name="genre"
+            id="genre"
+            onChange={(e) => setGenre(e.target.value)}
+          >
+            <option value="all">Genre</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Crime">Crime</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Historical">Historical</option>
+            <option value="Horror">Horror</option>
+            <option value="Romance">Romance</option>
+            <option value="Sci-Fi">Sci-fi</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Western">Western</option>
+            <option value="Animation">Animation</option>
+            <option value="Drama">Drama</option>
+            <option value="Documentary">Documentary</option>
           </select>
         </div>
       )}
-      <img
-        src="https://images.pexels.com/photos/6899260/pexels-photo-6899260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-        alt=""
-      />
+      <img src={content.img} alt="" />
       <div className="info">
-        <img
-          src="https://occ-0-1432-1433.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUZdeG1DrMstq-YKHZ-dA-cx2uQN_YbCYx7RABDk0y7F8ZK6nzgCz4bp5qJVgMizPbVpIvXrd4xMBQAuNe0xmuW2WjoeGMDn1cFO.webp?r=df1"
-          alt=""
-        />
-        <span className="desc">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-          adipisci repellendus eum quasi illo, velit numquam, maxime tempora
-          sint deleniti, aliquid qui? Facilis, adipisci! Ratione hic repudiandae
-          temporibus eum earum?
-        </span>
+        <img src={content.imgTitle} alt="" />
+        <span className="desc">{content.desc}</span>
         <div className="buttons">
-          <button className="play">
-            <PlayArrowIcon />
-            <span>Play</span>
-          </button>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={{ pathname: "/watch", movie: content }}
+          >
+            <button className="play">
+              <PlayArrowIcon />
+              <span>Play</span>
+            </button>
+          </Link>
           <button className="more">
             <InfoOutlinedIcon />
             <span>Info</span>
