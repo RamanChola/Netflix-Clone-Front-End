@@ -14,6 +14,10 @@
     display: flex;
     align-items: center;
 
+    @include mobile { 
+     left:25px;
+    }
+
     select {
       cursor: pointer;
       background-color: var(--main-color);
@@ -52,6 +56,10 @@
     color: white;
     display: flex;
     flex-direction: column;
+
+    @include mobile { 
+      left:25px;
+     }
 
     img {
       width: 40vw;

@@ -6,6 +6,7 @@ import ThumbDownAltOutlined from "@material-ui/icons/ThumbDownAltOutlined";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { CircularProgress } from "@material-ui/core";
 export default function ListItem({ index, item }) {
   const [isHovered, setIsHovered] = useState(false);
   const [movie, setMovie] = useState();
@@ -41,42 +42,42 @@ export default function ListItem({ index, item }) {
     };
   }, [item]);
 
-  return (
-    !loading && (
-      <Link
-        style={{ textDecoration: "none" }}
-        to={{ pathname: "/watch", movie: movie }}
+  return !loading ? (
+    <Link
+      style={{ textDecoration: "none" }}
+      to={{ pathname: "/watch", movie: movie }}
+    >
+      <div
+        className="listItem"
+        style={{ left: isHovered && index * 225 - 50 + index * 5 }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <div
-          className="listItem"
-          style={{ left: isHovered && index * 225 - 50 + index * 5 }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <img src={movie?.imgSm} alt="" />
+        <img src={movie?.imgSm} alt="" />
 
-          {isHovered && (
-            <>
-              <video src={movie.trailer} autoPlay={true} loop />
-              <div className="itemInfo">
-                <div className="icons">
-                  <PlayArrowIcon className="icon" />
-                  <AddIcon className="icon" />
-                  <ThumbUpAltOutlined className="icon" />
-                  <ThumbDownAltOutlined className="icon" />
-                </div>
-                <div className="itemInfoTop">
-                  <span>{movie.duration}</span>
-                  <span className="limit">+{movie.limit}</span>
-                  <span>{movie.year}</span>
-                </div>
-                <div className="desc">{movie.desc}</div>
-                <div className="genre">{movie.genre}</div>
+        {isHovered && (
+          <>
+            <video src={movie.trailer} autoPlay={true} loop />
+            <div className="itemInfo">
+              <div className="icons">
+                <PlayArrowIcon className="icon" />
+                <AddIcon className="icon" />
+                <ThumbUpAltOutlined className="icon" />
+                <ThumbDownAltOutlined className="icon" />
               </div>
-            </>
-          )}
-        </div>
-      </Link>
-    )
+              <div className="itemInfoTop">
+                <span>{movie.duration}</span>
+                <span className="limit">+{movie.limit}</span>
+                <span>{movie.year}</span>
+              </div>
+              <div className="desc">{movie.desc}</div>
+              <div className="genre">{movie.genre}</div>
+            </div>
+          </>
+        )}
+      </div>
+    </Link>
+  ) : (
+    <CircularProgress color="secondary" style={{marginRight:"225px"}}/>
   );
 }
