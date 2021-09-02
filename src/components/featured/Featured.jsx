@@ -68,7 +68,7 @@ const Featured = ({ type, setGenre }) => {
           </select>
         </div>
       )}
-      <img src={content.img} alt="" />
+      <img src={content.img} alt=" " />
       <div className="info">
         <img src={content.imgTitle} alt="" />
         <span className="desc">{content.desc}</span>
